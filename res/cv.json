@@ -1,0 +1,105 @@
+{
+    "skills": {
+        "skill_tree": {
+            "misc": [
+                "Office 365",
+                "Communication",
+                "bleh",
+                "Oof"
+            ],
+            "software": [
+                "C++",
+                "Java",
+                "JavaScript",
+                "Rust",
+                "Python"
+            ]
+        }
+    },
+    "work_experience": {
+        "work_experience_tree": {
+            "0": {
+                "job_title": "Software Engineer - AI Consultant",
+                "company_name": "Outlier",
+                "job_location": "Remote",
+                "job_description": [
+                    "did stuff",
+                    "and other stuff"
+                ],
+                "job_start": {
+                    "year": 2024,
+                    "month": 1,
+                    "day": 1
+                },
+                "job_end": null
+            },
+            "1": {
+                "job_title": "Software Engineering Intern",
+                "company_name": "Siemens",
+                "job_location": "Fremont, CA",
+                "job_description": [
+                    "did some stuff",
+                    "and other stupid stuff"
+                ],
+                "job_start": {
+                    "year": 2022,
+                    "month": 6,
+                    "day": 19
+                },
+                "job_end": {
+                    "year": 2022,
+                    "month": 9,
+                    "day": 19
+                }
+            }
+        }
+    },
+    "education": [
+        {
+            "school_name": "University of California, Santa Cruz",
+            "major": [
+                "Computer Enineering"
+            ],
+            "location": "Santa Cruz, CA",
+            "minor": [
+                "Computer Science",
+                "Electrical Engineering"
+            ],
+            "coursework": [
+                "Data Structures and Algorithms",
+                "Parallel Programming",
+                "Introduction to Electronic Circuits"
+            ],
+            "gpa": 3.78,
+            "education_start": {
+                "year": 2019,
+                "month": 9,
+                "day": 19
+            },
+            "education_end": {
+                "year": 2023,
+                "month": 6,
+                "day": 17
+            }
+        }
+    ],
+    "projects": [
+        {
+            "project_name": "MoCopy",
+            "project_description": [
+                "did something",
+                "did another thing"
+            ],
+            "project_start": {
+                "year": 2023,
+                "month": 1,
+                "day": null
+            },
+            "project_end": {
+                "year": 2023,
+                "month": 6,
+                "day": null
+            }
+        }
+    ]
+}
