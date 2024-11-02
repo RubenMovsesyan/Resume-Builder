@@ -123,6 +123,31 @@ impl WorkExperience {
             job_end: work_experience.job_end.clone(),
         }
     }
+
+    // getters
+    pub fn get_job_title(&self) -> &String {
+        &self.job_title
+    }
+
+    pub fn get_company_name(&self) -> &String {
+        &self.company_name
+    }
+
+    pub fn get_job_location(&self) -> &Option<String> {
+        &self.job_location
+    }
+
+    pub fn get_job_description(&self) -> &Vec<String> {
+        &self.job_description
+    }
+
+    pub fn get_job_start(&self) -> &Date {
+        &self.job_start
+    }
+
+    pub fn get_job_end(&self) -> &Option<Date> {
+        &self.job_end
+    }
 }
 
 impl Display for WorkExperience {
@@ -160,7 +185,7 @@ impl Display for WorkExperience {
 //__________________________________________
 
 #[derive(Serialize, Deserialize)]
-struct Education {
+pub struct Education {
     school_name: String,
     major: Vec<String>,
     location: String,
@@ -206,6 +231,39 @@ impl Education {
             education_start: education.education_start.clone(),
             education_end: education.education_end.clone(),
         }
+    }
+
+    // getters
+    pub fn get_school_name(&self) -> &String {
+        &self.school_name
+    }
+
+    pub fn get_major(&self) -> &Vec<String> {
+        &self.major
+    }
+
+    pub fn get_minor(&self) -> &Vec<String> {
+        &self.minor
+    }
+
+    pub fn get_location(&self) -> &String {
+        &self.location
+    }
+
+    pub fn get_coursework(&self) -> &Vec<String> {
+        &self.coursework
+    }
+
+    pub fn get_gpa(&self) -> f32 {
+        self.gpa
+    }
+
+    pub fn get_education_start(&self) -> &Date {
+        &self.education_start
+    }
+
+    pub fn get_education_end(&self) -> &Option<Date> {
+        &self.education_end
     }
 }
 
@@ -564,7 +622,7 @@ impl Display for CV {
 }
 
 pub struct SortableResumeItem<T> {
-    sortable: T,
+    pub sortable: T,
     point_value: i32,
 }
 
@@ -592,6 +650,22 @@ impl Resume {
             education: Vec::new(),
             projects: Vec::new(),
         }
+    }
+
+    pub fn get_skills(&self) -> &Vec<(String, Vec<SortableResumeItem<String>>)> {
+        &self.skills
+    }
+
+    pub fn get_work_experience(&self) -> &Vec<SortableResumeItem<WorkExperience>> {
+        &self.work_experience
+    }
+
+    pub fn get_education(&self) -> &Vec<SortableResumeItem<Education>> {
+        &self.education
+    }
+
+    pub fn get_projects(&self) -> &Vec<SortableResumeItem<Project>> {
+        &self.projects
     }
 }
 
