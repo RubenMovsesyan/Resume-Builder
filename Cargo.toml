@@ -6,9 +6,11 @@ edition = "2021"
 [dependencies]
 chrono = "0.4.38"
 genpdf = "0.2.0"
+glyph_brush_layout = "0.2.4"
+itertools = "0.13.0"
 latex = "0.3.1"
 latexcompile = "0.1.0"
 printpdf = "0.7.0"
-serde = { version = "1.0.210", features = ["derive"] }
+serde = { version = "1.0.214", features = ["derive"] }
 serde_json = "1.0.132"
 
