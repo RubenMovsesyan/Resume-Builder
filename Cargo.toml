@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 chrono = "0.4.38"
+docx-rust = "0.1.8"
 genpdf = "0.2.0"
 glyph_brush_layout = "0.2.4"
 itertools = "0.13.0"

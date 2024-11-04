@@ -112,7 +112,7 @@ pub fn create_pdf_from_resume(resume: &Resume) {
 
     let mut current_line_height = 269.4;
 
-    let mut write_to_page = |text_to_write: &str, left_margin: f32, width: f32, font_size: f32, font_id: usize| {
+    let mut write_to_page = |starting_height: f32, text_to_write: &str, left_margin: f32, width: f32, font_size: f32, font_id: usize| -> f32 {
         // calculate the glyph positions using glyph_brush_layout
         let glyphs = glyph_brush_layout::Layout::default().calculate_glyphs(
             gbl_fonts,
@@ -189,26 +189,32 @@ pub fn create_pdf_from_resume(resume: &Resume) {
                 line.trim(),
                 font_size,
                 Mm(left_margin),
-                Mm(current_line_height + px_to_mm(min) - px_to_mm(*y)),
+                Mm(starting_height + px_to_mm(min) - px_to_mm(*y)),
                 font,
             );
-            // This needs to be changed because it is very inefficient
-            line_diff = px_to_mm(*y);
         }
-        current_line_height -= line_diff;
+
+        // let mut outs = line_starts.iter().rev();
+        // let binding = (font_size, 0);
+        // let (_, (output_val, _)) = (outs.next(), outs.next().unwrap_or(&binding));
+        // px_to_mm(*output_val)
+        px_to_mm(line_starts.last().unwrap().0)
     };
 
     // Add Skills
-    write_to_page("Skills", 20.0, 160.0, 25.0, 1);
+    // let sample = "This is a test of the word wrapping technology This is a test of the word wrapping technology This is a test of the word wrapping technology This is a test of the word wrapping technology This is a test of the word wrapping technology This is a test of the word wrapping technology This is a test of the word wrapping technology This is a test of the word wrapping technology ";
+    // current_line_height -= write_to_page(current_line_height, sample, 20.0, 160.0, 14.0, 0);
+    // current_line_height -= write_to_page(current_line_height, sample, 20.0, 160.0, 25.0, 0);
+    current_line_height -= write_to_page(current_line_height, "Skills", 20.0, 160.0, 25.0, 1);
 
     for category in resume.get_skills().iter() {
-        write_to_page(&capitalize(category.0.clone()), 20.0, 160.0, 25.0, 1);
+        current_line_height -= write_to_page(current_line_height, &capitalize(category.0.clone()), 20.0, 160.0, 25.0, 1);
 
         let mut skills = String::new();
         for item in category.1.iter() {
             skills.push_str(&std::format!("{} ", item.sortable));
         }
-        write_to_page(&skills, 20.0, 160.0, 14.0, 0);
+        current_line_height -= write_to_page(current_line_height, &skills, 20.0, 160.0, 14.0, 0);
     }
 
 
