@@ -75,7 +75,7 @@ pub fn generate_docx_from_resume(resume: &Resume) {
     };
 
 
-    // FIXME Find a way to make unordered lists work to make document parsing much easier
+    //TODO: Find a way to make unordered lists work to make document parsing much easier
     let write_bullets = |d: &mut Docx, text: &Vec<String>| {
         let mut indent = Indent::default();
         indent.left = Some(42isize);

@@ -23,7 +23,7 @@ impl Display for Date {
             write!(f, " {} /", self.month.unwrap())?;
         }
         if self.day.is_some() {
-            writeln!(f, " {}", self.day.unwrap())?;
+            write!(f, " {}", self.day.unwrap())?;
         }
 
         Ok(())
@@ -307,7 +307,7 @@ impl Display for Education {
 //__________________________________________
 
 #[derive(Serialize, Deserialize)]
-struct Project {
+pub struct Project {
     project_name: String,
     project_description: Vec<String>,
 
@@ -337,6 +337,22 @@ impl Project {
             project_start: project.project_start.clone(),
             project_end: project.project_end.clone(),
         }
+    }
+
+    pub fn get_project_name(&self) -> &String {
+        &self.project_name 
+    }
+
+    pub fn get_project_description(&self) -> &Vec<String> {
+        &self.project_description 
+    }
+
+    pub fn get_project_start(&self) -> &Date {
+        &self.project_start
+    }
+
+    pub fn get_project_end(&self) -> &Option<Date> {
+        &self.project_end
     }
 }
 
