@@ -23,6 +23,7 @@ impl WordScore {
         }
     }
 
+    #[allow(unused)]
     pub fn get_score_ratio(&self) -> f32 {
         self.score_ratio
     }
@@ -41,6 +42,7 @@ impl Display for WordScore {
 }
 
 impl WordCloud {
+    #[allow(unused)]
     pub fn new() -> Self {
         Self {
             word_cloud: HashMap::new(),
@@ -48,6 +50,7 @@ impl WordCloud {
         }
     }
 
+    #[allow(unused)]
     pub fn create_from_text_file(filename: String) -> Self {
         // Reads from a file and removes extra spaces and new lines and then collects it into a vector
         let mut binding = fs::read_to_string(filename)

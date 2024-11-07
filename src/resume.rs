@@ -66,6 +66,7 @@ impl PhoneNumber {
         }
     }
 
+    #[allow(unused)]
     pub fn from(phone_number: &PhoneNumber) -> Self {
         Self {
             country_code: String::from(phone_number.country_code.clone()),
@@ -177,6 +178,7 @@ impl WorkExperience {
         }
     }
 
+    #[allow(unused)]
     pub fn from(work_experience: &WorkExperience) -> Self {
         Self {
             job_title: String::from(&work_experience.job_title),
@@ -284,6 +286,7 @@ impl Education {
         }
     }
 
+    #[allow(unused)]
     fn from(education: &Education) -> Self {
         Self {
             school_name: education.school_name.clone(),
@@ -310,6 +313,7 @@ impl Education {
         &self.minor
     }
 
+    #[allow(unused)]
     pub fn get_location(&self) -> &String {
         &self.location
     }
@@ -394,6 +398,7 @@ impl Project {
         }
     }
 
+    #[allow(unused)]
     fn from(project: &Project) -> Self {
         Self {
             project_name: project.project_name.clone(),
@@ -548,6 +553,7 @@ impl CV {
     }
 
     // Functions to sort and create resume
+    #[allow(unused)]
     fn create_sorted_skill_list(
         &self,
         word_cloud: &WordCloud,
@@ -572,6 +578,7 @@ impl CV {
         output
     }
 
+    #[allow(unused)]
     fn create_sorted_work_experience_list(
         &mut self,
         word_cloud: &WordCloud,
@@ -607,6 +614,7 @@ impl CV {
         output
     }
 
+    #[allow(unused)]
     fn create_sorted_education_list(
         &mut self,
         word_cloud: &WordCloud,
@@ -641,6 +649,7 @@ impl CV {
         output
     }
 
+    #[allow(unused)]
     fn create_sorted_project_list(
         &mut self,
         word_cloud: &WordCloud,
@@ -671,6 +680,7 @@ impl CV {
     }
 
     // Creates a resume with vectors sorted by word cloud score ratio
+    #[allow(unused)]
     pub fn generate_resume(&mut self, word_cloud: &WordCloud) -> Resume {
         let mut resume = Resume::new();
         
@@ -702,12 +712,14 @@ impl CV {
     }
 
     // Saving and loading file
+    #[allow(unused)]
     pub fn save_to_file(&self, filename: String) {
         let saved_file = serde_json::to_string(self).unwrap();
 
         fs::write(filename, saved_file).expect("Unable to write to file");
     }
 
+    #[allow(unused)]
     pub fn load_from_file(&mut self, filename: String) {
         let mut contents = String::new();
         let _ = fs::File::open(filename)
@@ -741,12 +753,14 @@ impl Display for CV {
     }
 }
 
+#[allow(unused)]
 pub struct SortableResumeItem<T> {
     pub sortable: T,
     point_value: i32,
 }
 
 impl<T> SortableResumeItem<T> {
+    #[allow(unused)]
     pub fn new(sortable: T, point_value: i32) -> Self {
         Self {
             sortable,
@@ -767,6 +781,7 @@ pub struct Resume {
 }
 
 impl Resume {
+    #[allow(unused)]
     pub fn new() -> Self {
         Self {
             name: None,

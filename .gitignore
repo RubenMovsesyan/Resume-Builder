@@ -1,5 +1,6 @@
 /target
 .vscode/
 src/main.rs
+src/create_resume.rs
 /res
 /fonts

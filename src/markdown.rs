@@ -1,11 +1,11 @@
 use crate::resume::*;
-use std::fs::File;
 use std::fs;
 // use std::io::prelude::*;
 
 
 
 // Helper capitalize funciton
+#[allow(unused)]
 fn capitalize(string: String) -> String {
     let mut output = String::new();
     let mut first = true;
@@ -23,7 +23,8 @@ fn capitalize(string: String) -> String {
 }
 
 
-pub fn generate_markdown_from_resume(resume: &Resume) {
+#[allow(unused)]
+pub fn generate_markdown_from_resume(resume: &Resume, output_file: String) {
 //    let mut file = File::create("./res/test.md").unwrap();
     let mut contents = String::new();
     
@@ -56,7 +57,7 @@ pub fn generate_markdown_from_resume(resume: &Resume) {
     });
 
     // Linked in \ website | phone number
-    write_section_header(
+    write_normal(
         &mut contents,
         &format!("{} | {} | {}",
             match resume.get_linked_in() {
@@ -272,5 +273,5 @@ pub fn generate_markdown_from_resume(resume: &Resume) {
         }
     }
    
-    fs::write("./res/test.md" , contents).expect("Unable to write file");
+    fs::write(output_file , contents).expect("Unable to write file");
 }
