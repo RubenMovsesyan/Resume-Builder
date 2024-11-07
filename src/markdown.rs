@@ -46,6 +46,33 @@ pub fn generate_markdown_from_resume(resume: &Resume) {
             c.push_str(&format!("* {}\n", item));
         }
     };
+    
+    // Name
+    write_section_header(&mut contents, {
+        match resume.get_name() {
+            Some(name) => &name,
+            None => ""
+        }
+    });
+
+    // Linked in \ website | phone number
+    write_section_header(
+        &mut contents,
+        &format!("{} | {} | {}",
+            match resume.get_linked_in() {
+                Some(linked_in) => { linked_in },
+                None => { "" }
+            },
+            match resume.get_website() {
+                Some(website) => { website },
+                None => { "" }
+            },
+            match resume.get_phone_number() {
+                Some(phone_number) => { format!("{}", phone_number) },
+                None => { "".to_string() }
+            }
+        )
+    );
 
     // Skills Heading
     write_section_header(&mut contents, "Skills");

@@ -30,6 +30,8 @@ impl Display for Date {
     }
 }
 
+
+#[derive(Serialize, Deserialize)]
 pub struct PhoneNumber {
     country_code: String,
     area_code: Option<String>,
@@ -61,6 +63,19 @@ impl PhoneNumber {
             country_code: cc,
             area_code: ac,
             phone_number: pn,
+        }
+    }
+
+    pub fn from(phone_number: &PhoneNumber) -> Self {
+        Self {
+            country_code: String::from(phone_number.country_code.clone()),
+            area_code: {
+                match &phone_number.area_code {
+                    Some(ac) => { Some(ac.to_string()) },
+                    None => None
+                }
+            },
+            phone_number: String::from(phone_number.phone_number.clone()),
         }
     }
 }
@@ -429,9 +444,10 @@ impl Display for Project {
 
 #[derive(Serialize, Deserialize)]
 pub struct CV {
-    name: String,
+    name: Option<String>,
     linked_in: Option<String>,
     website: Option<String>,
+    phone_number: Option<PhoneNumber>,
     skills: Skills,
     work_experience: Vec<WorkExperience>,
     education: Vec<Education>,
@@ -441,14 +457,32 @@ pub struct CV {
 impl CV {
     pub fn new() -> Self {
         Self {
-            name: String::new(),
+            name: None,
             linked_in: None,
             website: None,
+            phone_number: None,
             skills: Skills::new(),
             work_experience: Vec::new(),
             education: Vec::new(),
             projects: Vec::new(),
         }
+    }
+
+    // CV setters
+    pub fn set_name(&mut self, name: String) {
+        self.name = Some(name);
+    }
+
+    pub fn set_linked_in(&mut self, linked_in: String) {
+        self.linked_in = Some(linked_in); 
+    }
+
+    pub fn set_website(&mut self, website: String) {
+        self.website = Some(website);
+    }
+
+    pub fn set_phone_number(&mut self, phone_number: PhoneNumber) {
+        self.phone_number = Some(phone_number);
     }
 
     // CV adders
@@ -639,7 +673,22 @@ impl CV {
     // Creates a resume with vectors sorted by word cloud score ratio
     pub fn generate_resume(&mut self, word_cloud: &WordCloud) -> Resume {
         let mut resume = Resume::new();
-
+        
+        // Add name to resume
+        resume.name = self.name.clone();
+        // Add linkedin to resume
+        resume.linked_in = self.linked_in.clone();
+        // Add website to resume
+        resume.website = self.website.clone();
+        // Add phone number to resume
+        resume.phone_number = {
+            match &self.phone_number {
+                Some(phone_number) => {
+                    Some(PhoneNumber::from(phone_number))
+                },
+                None => None
+            }
+        };
         // Add Skills to resume
         resume.skills = self.create_sorted_skill_list(&word_cloud);
         // Add Work experince to resume
@@ -707,6 +756,10 @@ impl<T> SortableResumeItem<T> {
 }
 
 pub struct Resume {
+    name: Option<String>,
+    linked_in: Option<String>,
+    website: Option<String>,
+    phone_number: Option<PhoneNumber>,
     skills: Vec<(String, Vec<SortableResumeItem<String>>)>,
     work_experience: Vec<SortableResumeItem<WorkExperience>>,
     education: Vec<SortableResumeItem<Education>>,
@@ -716,6 +769,10 @@ pub struct Resume {
 impl Resume {
     pub fn new() -> Self {
         Self {
+            name: None,
+            linked_in: None,
+            website: None,
+            phone_number: None,
             skills: Vec::new(),
             work_experience: Vec::new(),
             education: Vec::new(),
@@ -737,6 +794,22 @@ impl Resume {
 
     pub fn get_projects(&self) -> &Vec<SortableResumeItem<Project>> {
         &self.projects
+    }
+
+    pub fn get_name(&self) -> &Option<String> {
+        &self.name
+    }
+
+    pub fn get_linked_in(&self) -> &Option<String> {
+        &self.linked_in
+    }
+    
+    pub fn get_website(&self) -> &Option<String> {
+        &self.website
+    }
+    
+    pub fn get_phone_number(&self) -> &Option<PhoneNumber> {
+        &self.phone_number
     }
 }
 
