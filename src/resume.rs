@@ -30,6 +30,55 @@ impl Display for Date {
     }
 }
 
+pub struct PhoneNumber {
+    country_code: String,
+    area_code: Option<String>,
+    phone_number: String
+}
+
+
+impl PhoneNumber {
+    // Phone number must be formatted like "+1 (555) 2321 123 123
+    // the country code must have a + in front and the area code must be in ()
+    pub fn new(phone_number_string: String) -> Self {
+        let split_phone_number = phone_number_string.split(" ").collect::<Vec<&str>>();
+        let mut cc = String::new();
+        let mut ac = None;
+        let mut pn = String::new();
+
+        // Split the phone number from the string to the different components
+        for split in split_phone_number.iter() {
+            if split.contains("+") {
+                cc = split.to_string();
+            } else if split.contains("(") && split.contains(")") {
+                ac = Some(split.to_string());
+            } else {
+                pn.push_str(&split);
+            }
+        }
+
+        Self {
+            country_code: cc,
+            area_code: ac,
+            phone_number: pn,
+        }
+    }
+}
+
+impl Display for PhoneNumber {
+   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+       write!(f, "{}", self.country_code)?;
+
+       match &self.area_code {
+           Some(code) => { write!(f, " {}", code)? },
+           None => {}
+       }
+
+       writeln!(f, " {}", self.phone_number)?;
+       Ok(())
+   }
+}
+
 //----------------------------------------------
 #[derive(Serialize, Deserialize)]
 pub struct Skills {
@@ -380,15 +429,21 @@ impl Display for Project {
 
 #[derive(Serialize, Deserialize)]
 pub struct CV {
+    name: String,
+    linked_in: Option<String>,
+    website: Option<String>,
     skills: Skills,
     work_experience: Vec<WorkExperience>,
     education: Vec<Education>,
-    projects: Vec<Project>,
+    projects: Vec<Project>
 }
 
 impl CV {
     pub fn new() -> Self {
         Self {
+            name: String::new(),
+            linked_in: None,
+            website: None,
             skills: Skills::new(),
             work_experience: Vec::new(),
             education: Vec::new(),
